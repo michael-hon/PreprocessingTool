@@ -2,6 +2,7 @@ package com.scut.PreprocessingTool.Service;
 
 import java.util.List;
 
+import com.scut.PreprocessingTool.Entity.FileInformation;
 import com.scut.PreprocessingTool.Entity.Range;
 import com.scut.PreprocessingTool.Entity.Ref_files;
 import com.scut.PreprocessingTool.Entity.Standard;
@@ -9,8 +10,21 @@ import com.scut.PreprocessingTool.Entity.Tech_requirements;
 import com.scut.PreprocessingTool.Entity.Term_defs;
 
 public interface StandardService {
-	//标准解析
-	public void AnalysisStandard(List<Integer> file_id);
+	//保存源文件基本信息
+	public void InsertInfo(FileInformation fileInfo);
+	
+	//保存用户操作源文件记录
+	public void recordUserToFile(int staff_id, int file_id);
+	
+	//根据文件名获取文件id
+	public int ObtainFileId(String filename);
+	
+	
+	//单份标准解析
+	public void AnalysisSingleStandard(int file_id);
+	
+	//批量标准解析
+	public void AnalysisBatchStandard(List<Integer> file_id);
 	
 	//获取源文件路径
 	public String getSourceStandardPath(int file_id);
@@ -44,5 +58,8 @@ public interface StandardService {
 	
 	//校验指标内容
 	public void ValidationTech_requirements(int file_id, Tech_requirements tech_requirements);
+	
+	//保存校验结果
+	public void SaveStandard(int file_id, String standard_str);
 	
 }

@@ -20,6 +20,23 @@ public class FileInformation {
 	
 	private int is_validation;            //是否校验
 
+	public FileInformation(){
+		
+	}
+	
+	public FileInformation(String filename,String upload_time, String source_filepath,
+			              String text_filepath, int is_analysis, int is_clean,
+			              int is_structure, int is_validation){
+		this.filename = filename;
+		this.upload_time = upload_time;
+		this.source_filepath = source_filepath;
+		this.text_filepath = text_filepath;
+		this.is_analysis = is_analysis;
+		this.is_clean = is_clean;
+		this.is_structure = is_structure;
+		this.is_validation = is_validation;
+	}
+	
 	public int getFile_id() {
 		return file_id;
 	}

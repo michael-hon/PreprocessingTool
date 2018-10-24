@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.scut.PreprocessingTool.DAO.standard_infoDAO">
+      <resultMap type="com.scut.PreprocessingTool.Entity.standard_info" id="standard_info_map">
+         <id column="id" property="id"/>
+         <result column="number" property="number"/>
+         <result column="c_name" property="c_name"/>
+         <result column="e_name" property="e_name"/>
+         <result column="applicable_range" property="applicable_range"/>
+         <result column="ccs" property="ccs"/>
+         <result column="ics" property="ics"/>
+         <result column="status" property="status"/>
+         <result column="ref_standards" property="ref_standards"/>
+         <result column="carray_out_date" property="carray_out_date"/>
+         <result column="publish_date" property="publish_date"/>
+         <result column="abolish_date" property="abolish_date"/>
+         <result column="scope" property="scope"/>
+      </resultMap>
+      <sql id="Base_Column_List">
+          id, number, c_name, e_name, applicable_range, 
+          ccs, ics, status, ref_standards, carray_out_date, 
+          publish_date, abolish_date, scope
+      </sql>
+      <select id="select" resultMap="standard_info_map">
+          SELECT 
+          <include refid="Base_Column_List"></include> 
+          FROM standard_info
+      </select>
+</mapper>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.scut.PreprocessingTool.DAO.FileInformationDAO">
+    <resultMap type="com.scut.PreprocessingTool.Entity.FileInformation" id="fileInfoMap">
+       <id column="file_id" property="file_id"/>
+       <result column="filename" property="filename"/>
+       <result column="upload_time" property="upload_time"/>
+       <result column="source_filepath" property="source_filepath"/>
+       <result column="text_filepath" property="text_filepath"/>
+       <result column="is_analysis" property="is_analysis"/>
+       <result column="is_clean" property="is_clean"/>
+       <result column="is_structure" property="is_structure"/>
+       <result column="is_validation" property="is_validation"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        filename, upload_time, source_filepath, text_filepath, 
+        is_analysis, is_clean, is_structure, is_validation
+    </sql>
+    <insert id="insertFileInformation" parameterType="com.scut.PreprocessingTool.Entity.FileInformation">
+         INSERT INTO 
+         fileinformation(<include refid="Base_Column_List"></include>) 
+         values(#{filename}, #{upload_time}, #{source_filepath}, #{text_filepath}, 
+                #{is_analysis}, #{is_clean}, #{is_structure}, #{is_validation})
+    </insert>
+    
+    <select id="selectFileId" resultType="java.lang.Integer">
+        SELECT file_id FROM fileinformation WHERE filename=#{filename}
+    </select>
+    
+    <select id="selectAllFilesInformation" resultMap="fileInfoMap">
+         SELECT file_id, 
+         <include refid="Base_Column_List"></include> 
+         FROM fileinformation
+    </select>
+    
+    <select id="selectFileName" parameterType="java.lang.Integer" resultType="java.lang.String">
+       SELECT filename FROM fileinformation WHERE file_id=#{file_id}
+    </select>
+    
+    <select id="selectSourceFilePathByFileId" parameterType="java.lang.Integer" resultType="java.lang.String">
+         SELECT source_filepath FROM fileinformation WHERE file_id=#{file_id}
+    </select>
+    
+    <select id="selectOneFileInfo" parameterType="java.lang.Integer" resultMap="fileInfoMap">
+       SELECT file_id, 
+       <include refid="Base_Column_List"></include> 
+       FROM fileinformation WHERE file_id=#{file_id}
+    </select>
+    
+    <select id="selectSourceFilePathByFileId" parameterType="java.lang.Integer" resultType="java.lang.String">
+       SELECT source_filepath FROM fileinformation WHERE file_id=#{file_id}
+    </select>
+    
+    <select id="selectTxtFilepathByFileId" parameterType="java.lang.Integer" resultType="java.lang.String">
+         SELECT text_filepath FROM fileinformation WHERE file_id=#{file_id}
+    </select>
+    
+    <insert id="insertStaffToFile">
+        INSERT INTO 
+        user_standard(staff_id, file_id) 
+        values(#{staff_id}, #{file_id})
+    </insert>
+    
+    <update id="updateFileInformation" parameterType="com.scut.PreprocessingTool.Entity.FileInformation">
+        UPDATE fileinformation SET text_filepath=#{text_filepath}, 
+        is_analysis=#{is_analysis} WHERE file_id=#{file_id}
+    </update>
+    
+    <insert id="insertMongoToFile">
+       INSERT INTO 
+       mongotofile(file_id, ISBN) 
+       values(#{file_id}, #{ISBN})
+    </insert>
+    
+</mapper>
